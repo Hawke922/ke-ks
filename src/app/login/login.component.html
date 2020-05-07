@@ -1,0 +1,13 @@
+<div *ngIf="authService.user$ | async as user; else login">
+  {{ user | json }}
+  <hr>
+  <button mat-raised-button color="basic" (click)="authService.signOut()">Odhlásiť sa</button>
+</div>
+<ng-template #login>
+  <button mat-raised-button color="accent" (click)="authService.googleSignin()">
+    Prihlásiť sa cez Google
+  </button>
+  <button mat-raised-button color="basic" routerLink="/landing">Späť</button>
+</ng-template>
+<div id="firebaseui-auth-container" class="">
+</div>

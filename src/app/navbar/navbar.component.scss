@@ -1,0 +1,43 @@
+.logo {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-left: var(--side-margin);
+    margin-top: 1rem;
+    text-decoration: none; 
+    color: var(--text-color);
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.logo span {
+    font-weight: 200;
+    text-shadow: var(--text-shadow);
+}
+
+#title {
+    font-size: 4.5rem;
+    margin-left: -0.3rem;
+}
+
+#subtitle {
+    font-size: 1.8rem;
+}
+
+mat-toolbar {
+    height: 10rem;
+}
+
+.nav-link {
+    display: grid;
+    height: 100%;
+    font-size: 2rem;
+    font-weight: 400;
+    place-content: center;
+    padding: 0 3rem;
+}
+
+#login {
+    margin-right: var(--side-margin)
+}
