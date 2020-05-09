@@ -8,7 +8,26 @@
     <a mat-button class="nav-link">Podujatia</a>
     <a mat-button class="nav-link">O nás</a>
     <a mat-button class="nav-link">Odkazy</a>
-    <a mat-button class="nav-link">Odhlásiť sa</a>
-    <a mat-button class="nav-link" [routerLink]="['/register']">Registrovať sa</a>
-    <a mat-button class="nav-link" id="login" [routerLink]="['/login']">Prihlásiť sa</a>
+
+    <a mat-button 
+        class="nav-link" 
+        [routerLink]="['/register']" 
+        *ngIf="!authService.isLoggedIn">
+            Registrovať sa
+    </a>
+
+    <a mat-button 
+        class="nav-link" 
+        id="login" 
+        [routerLink]="['/login']"
+        *ngIf="!authService.isLoggedIn">
+            Prihlásiť sa
+    </a>
+    <a mat-button 
+        class="nav-link" 
+        id="login" 
+        [routerLink]="['/profil']"
+        *ngIf="authService.user$ | async as user">
+            {{ user.email }}
+    </a>
 </mat-toolbar>

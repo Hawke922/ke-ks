@@ -1,41 +1,36 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { auth } from 'firebase';
-import * as firebaseui from 'firebaseui';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { User } from 'firebase';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  ui: firebaseui.auth.AuthUI;
+export class LoginComponent implements OnInit {
 
-  constructor(public authService: AuthService, private angularFireAuth: AngularFireAuth) {
+  loginForm: FormGroup;
+  user: User;
+
+  constructor(public authService: AuthService, private formBuilder: FormBuilder) {
   }
 
   ngOnInit() {
-    const uiConfig = {
-      signInOptions: [
-        auth.GoogleAuthProvider.PROVIDER_ID,
-        auth.EmailAuthProvider.PROVIDER_ID
-      ],
-
-      callbacks: {
-        signInSuccessWithAuthResult: this.onLoginSuccessful.bind(this)
-      }
-    };
-
-    this.ui = new firebaseui.auth.AuthUI(auth());
-    this.ui.start('#firebaseui-auth-container', uiConfig);
+    this.createLoginForm();
   }
 
-  ngOnDestroy() {
-    this.ui.delete();
+  createLoginForm() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required]
+    });
   }
 
-  onLoginSuccessful() {
-
+  login() {
+    if (this.loginForm.valid) {
+      this.user = Object.assign({}, this.loginForm.value);
+      this.authService.emailSignin(this.user);
+    }
   }
 }

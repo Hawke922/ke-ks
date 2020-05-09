@@ -1,4 +1,4 @@
-import { Injectable, ɵCodegenComponentFactoryResolver } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { User } from '../models/user.model';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -6,12 +6,14 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { auth } from 'firebase';
+import { UserToRegister } from '../models/user-to-register.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   user$: Observable<User>;
+  isLoggedIn: boolean;
 
   constructor(private angularFireAuth: AngularFireAuth, private angularFirestore: AngularFirestore, private router: Router) {
     this.user$ = this.angularFireAuth.authState.pipe(
@@ -20,42 +22,43 @@ export class AuthService {
         // if user is found, make a call to DB to get user with same document name as uid
         // then create observable out of it with .valueChanges()
         if (user) {
+          this.isLoggedIn = true;
           return this.angularFirestore.doc<User>(`users/${user.uid}`).valueChanges();
         }
         // if user is not found, returns null for now, might switch to different value later
         // helps to tell when user is not logged in
         else {
+          this.isLoggedIn = false;
           return of(null);
         }
       })
     );
   }
 
-  register(email: string, password: string) {
-    this.angularFireAuth.createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        // on success switch to landing and pass user info into login
-        this.router.navigate(['/landing']);
-        this.emailSignin(email, password);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  async emailSignup(userToRegister: UserToRegister) {
+    const credential = await this.angularFireAuth.createUserWithEmailAndPassword(userToRegister.email, userToRegister.password);
+    const userRef: AngularFirestoreDocument<User> = this.angularFirestore.doc(`users/${credential.user.uid}`);
+    this.router.navigate(['/landing']);
+
+    const data = {
+      uid: credential.user.uid,
+      email: credential.user.email,
+      displayName: userToRegister.displayName
+    };
+
+    return userRef.set(data, {merge: true});
   }
 
-  emailSignin(email: string, password: string) {
-    this.angularFireAuth.signInWithEmailAndPassword(email, password)
-      .then(() => {
-        // on success do stuff
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  async emailSignin(user: User) {
+    const credential = await this.angularFireAuth.signInWithEmailAndPassword(user.email, user.password);
+    this.router.navigate(['/landing']);
+    return this.updateUserData(credential.user);
   }
 
   async googleSignin() {
     const provider = new auth.GoogleAuthProvider();
     const credential = await this.angularFireAuth.signInWithPopup(provider);
+    this.router.navigate(['/landing']);
     return this.updateUserData(credential.user);
   }
 
@@ -67,12 +70,12 @@ export class AuthService {
   private updateUserData(user) {
     // taking info from AngularFire auth state and mirroring it into firestore document
 
-    const userRef: AngularFirestoreDocument<User> = this.angularFirestore.doc(`users/${user.uId}`);
+    const userRef: AngularFirestoreDocument<User> = this.angularFirestore.doc(`users/${user.uid}`);
 
     const data = {
-      uId: user.uId,
+      uid: user.uid,
       email: user.email,
-      photoUrl: user.photoUrl,
+      photoURL: user.photoURL,
       displayName: user.displayName
     };
 
@@ -82,4 +85,6 @@ export class AuthService {
     // will only replace the properties that change in the data payload
     return userRef.set(data, {merge: true});
   }
+
+
 }
