@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { User } from '../models/user.model';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
@@ -36,17 +36,25 @@ export class AuthService {
   }
 
   async emailSignup(userToRegister: UserToRegister) {
-    const credential = await this.angularFireAuth.createUserWithEmailAndPassword(userToRegister.email, userToRegister.password);
-    const userRef: AngularFirestoreDocument<User> = this.angularFirestore.doc(`users/${credential.user.uid}`);
-    this.router.navigate(['/landing']);
+    const credential = await this.angularFireAuth.createUserWithEmailAndPassword(userToRegister.email, userToRegister.password)
+      .then((result) => {
+        result.user.updateProfile({
+          displayName: userToRegister.displayName,
+          photoURL: 'https://firebasestorage.googleapis.com/v0/b/keks-development.appspot.com/o/user.png?alt=media&token=771c84d5-7cc8-4e07-a26b-63c0262a91bd'
+        });
 
-    const data = {
-      uid: credential.user.uid,
-      email: credential.user.email,
-      displayName: userToRegister.displayName
-    };
+        const userRef: AngularFirestoreDocument<User> = this.angularFirestore.doc(`users/${result.user.uid}`);
+        this.router.navigate(['/landing']);
 
-    return userRef.set(data, {merge: true});
+        const data = {
+          uid: result.user.uid,
+          email: result.user.email,
+          displayName: userToRegister.displayName,
+          photoURL: 'https://firebasestorage.googleapis.com/v0/b/keks-development.appspot.com/o/user.png?alt=media&token=771c84d5-7cc8-4e07-a26b-63c0262a91bd'
+        };
+
+        return userRef.set(data, {merge: true});
+      });
   }
 
   async emailSignin(user: User) {
@@ -85,6 +93,5 @@ export class AuthService {
     // will only replace the properties that change in the data payload
     return userRef.set(data, {merge: true});
   }
-
 
 }

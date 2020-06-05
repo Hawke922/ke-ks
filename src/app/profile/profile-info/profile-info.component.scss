@@ -1,0 +1,52 @@
+.header-line {
+    display: flex;
+}
+
+.header-line button {
+    align-self: start;
+}
+
+.profile-line {
+    display: flex;
+    height: 7rem;
+    align-content: center;
+    align-items: center;
+}
+
+.profile-property {
+    display: inline-block;
+    width: 15rem;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.display-name {
+    font-size: medium;
+    font-weight: 500;
+}
+
+img {
+    height: 70%;
+    border-radius: 50%;
+}
+
+.preview-property {
+    margin-left: 5rem;
+}
+
+.date {
+    width: 9rem;
+}
+
+.date, mat-radio-button {
+    margin-left: 2rem;
+}
+
+.about-me-field {
+    width: 85%;
+    margin-left: 2rem;
+    align-self: start;
+    padding-top: 1rem;
+}

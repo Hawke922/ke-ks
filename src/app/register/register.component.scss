@@ -1,0 +1,61 @@
+:host {
+    display: grid;
+    height: 100vh;
+    place-items: center;
+    background-image: url("../../assets/backgrounds/colorful-cacti.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+}
+
+.card {
+    width: 55rem;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background: #f1f1f1;
+    padding: 0 3rem;
+}
+
+.card h1 {
+    line-height: 8rem;
+    font-size: 8rem;
+    font-weight: 200;
+    margin-bottom: 3rem;
+}
+
+.card h1 span{
+    font-weight: 400;
+}
+
+.card h2 {
+    font-size: 2.8rem;
+    font-weight: 300;
+    margin: 5rem 0 4rem 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-form-field {
+    width: 30rem;
+    margin: 0 auto;
+}
+
+mat-card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+mat-card-actions button {
+    justify-self: center;
+    width: 15rem;
+    margin: 1rem 0;
+}
+
+mat-card-actions span {
+    margin: 1rem 0 3rem 0;
+    grid-column: 1/3;
+}

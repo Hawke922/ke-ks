@@ -1,0 +1,28 @@
+<div class="container">
+    <h1 mat-dialog-title>KE-KS.sk Avatar</h1>
+        <div class="preview">
+            <img src="{{ croppedImage || user.photoURL }}"/>
+            <span>{{ user.displayName }}</span>
+            <span id="email">{{ user.email }}</span>
+            <button mat-raised-button (click)="fileInput.click()">Nahraj Avatar</button>
+        </div>
+    <div class="cropper">
+        <input type="file" hidden (change)="fileChangeEvent($event)" #fileInput/>
+        <image-cropper
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="1 / 1"
+            [resizeToWidth]="128"
+            [onlyScaleDown]="true"
+            format="jpg"
+            [cropperMinWidth]="128"
+            (imageCropped)="imageCropped($event)"
+            (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button mat-dialog-close>Späť</button>
+        <div class="spacer"></div>
+        <button mat-raised-button color="primary" (click)="saveCroppedAvatar()">Potvrdiť</button>
+    </div>
+</div>

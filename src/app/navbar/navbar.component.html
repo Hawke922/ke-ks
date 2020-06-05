@@ -1,13 +1,17 @@
-<mat-toolbar>
+<mat-toolbar color="primary" class="mat-elevation-z6">
     <a class="logo" [routerLink]="['/landing']">
         <span id="title">KE-KS.sk</span>
         <span id="subtitle">Košickí kaktusári a sukulentári</span>
     </a>
     <div class="spacer"></div>
-    <a mat-button class="nav-link">Domov</a>
+    <a mat-button class="nav-link">Domov</a> 
+    <mat-divider class="style-fix" [inset]="true" [vertical]="true"></mat-divider>
     <a mat-button class="nav-link">Podujatia</a>
+    <mat-divider class="style-fix" [inset]="true" [vertical]="true"></mat-divider>
     <a mat-button class="nav-link">O nás</a>
+    <mat-divider class="style-fix" [inset]="true" [vertical]="true"></mat-divider>
     <a mat-button class="nav-link">Odkazy</a>
+    <mat-divider class="style-fix" [inset]="true" [vertical]="true"></mat-divider>
 
     <a mat-button 
         class="nav-link" 
@@ -15,7 +19,7 @@
         *ngIf="!authService.isLoggedIn">
             Registrovať sa
     </a>
-
+    <mat-divider *ngIf="!authService.isLoggedIn" class="style-fix"  [inset]="true" [vertical]="true"></mat-divider>
     <a mat-button 
         class="nav-link" 
         id="login" 
@@ -23,11 +27,22 @@
         *ngIf="!authService.isLoggedIn">
             Prihlásiť sa
     </a>
+    <mat-divider *ngIf="!authService.isLoggedIn" class="style-fix" [inset]="true" [vertical]="true"></mat-divider>
     <a mat-button 
+        [matMenuTriggerFor]="dropdown"
         class="nav-link" 
         id="login" 
-        [routerLink]="['/profil']"
         *ngIf="authService.user$ | async as user">
-            {{ user.email }}
+            {{ user.displayName }}
     </a>
+    <mat-menu #dropdown="matMenu" yPosition="below">
+        <button mat-menu-item [routerLink]="['/profil/info']">Nastavenia účtu</button>
+        <button mat-menu-item [matMenuTriggerFor]="subDropdown">Pridať</button>
+        <button mat-menu-item (click)="authService.signOut()">Odhlásiť sa</button>
+    </mat-menu>
+    <mat-menu #subDropdown="matMenu" xPosition="before">
+        <button mat-menu-item><mat-icon>add_comment</mat-icon> Článok</button>
+        <button mat-menu-item><mat-icon>event</mat-icon> Udalosť</button>
+        <button mat-menu-item><mat-icon>add_a_photo</mat-icon> Obrázok</button>
+    </mat-menu>
 </mat-toolbar>

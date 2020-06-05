@@ -30,7 +30,11 @@ export class LoginComponent implements OnInit {
   login() {
     if (this.loginForm.valid) {
       this.user = Object.assign({}, this.loginForm.value);
-      this.authService.emailSignin(this.user);
+      this.authService.emailSignin(this.user).catch((error) => {
+        if (error) {
+          this.loginForm.get('email').setErrors({ loginFailed: true });
+        }
+      });
     }
   }
 }

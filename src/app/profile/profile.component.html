@@ -1,7 +1,23 @@
-<div *ngIf="authService.user$ | async as user;">
-    <pre>
-      {{ user | json }}
-    </pre>
-    <hr>
-    <button mat-raised-button color="basic" (click)="authService.signOut()">Odhlásiť sa</button>
-  </div>
+<mat-card class="menu">
+  <button mat-button [routerLink]="['/profil/info']"><mat-icon>account_box</mat-icon>Môj profil</button>
+  <mat-divider [inset]="true" ></mat-divider>
+  <button mat-button [routerLink]="['/profil/bezpecnost']"><mat-icon>lock</mat-icon>Prihlasovanie a bezpečnosť</button>
+  <mat-divider [inset]="true" ></mat-divider>
+  <button mat-button>	<mat-icon>mail</mat-icon>Odbery noviniek</button>
+  <mat-divider [inset]="true" ></mat-divider>
+  <button mat-button>	<mat-icon>build</mat-icon>Admistrátorský panel</button>
+</mat-card>
+
+<div class="component-viewer">
+  <router-outlet></router-outlet>
+</div>
+
+
+
+<!-- <div class="info-to-remove" *ngIf="authService.user$ | async as user;">
+  <pre>
+    {{ user | json }}
+  </pre>
+  <hr>
+  <button mat-raised-button color="accent" (click)="authService.signOut()">Odhlásiť sa</button>
+</div> -->

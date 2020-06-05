@@ -1,0 +1,73 @@
+:host {
+    display: grid;
+    height: 100vh;
+    place-items: center;
+    background-image: url("../../assets/backgrounds/colorful-cacti.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+}
+
+.card {
+    width: 50rem;
+    background: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 0 3rem;
+}
+
+.card h1 {
+    font-size: 8rem;
+    font-weight: 200;
+    // text-shadow: 0.2rem 0.2rem 0.5rem #505160;
+    margin: 8rem 0;
+}
+
+.google-login {
+    margin-bottom: 4rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+mat-form-field {
+    width: 30rem;
+    margin: 0 auto;
+}
+
+mat-card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+mat-card-actions button {
+    justify-self: center;
+    width: 15rem;
+    margin: 1rem 0;
+}
+
+mat-card-actions span {
+    margin: 1rem 0 3rem 0;
+    grid-column: 1/3;
+}
+
+@media screen and (max-width: 700px) {
+    
+    :host {
+        background: #fff;
+        background-image: 0;
+    }
+
+    .card {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(7deg, #e9b27b 0%, #e39e59 43%, #e39e59 100%);
+        padding: 0;
+        border-radius: 0;
+        position: absolute;
+    }
+
+}

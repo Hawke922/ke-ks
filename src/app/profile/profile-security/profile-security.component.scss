@@ -1,0 +1,16 @@
+.profile-line {
+    display: flex;
+    height: 7rem;
+    align-content: center;
+    align-items: center;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.login-email {
+    font-size: medium;
+    font-weight: 500;
+    margin: auto;
+}

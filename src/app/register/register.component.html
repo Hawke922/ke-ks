@@ -1,54 +1,63 @@
-<form [formGroup]="registerForm" (ngSubmit)="register()">
-  <mat-form-field appearance="standard">
-    <mat-label>Tvoje používateľské meno</mat-label>
-    <input
-      id="displayName"
-      matInput
-      formControlName="displayName"
-    />
-    <mat-error *ngIf="registerForm.get('displayName').hasError('required')">Meno je povinný údaj</mat-error>
-    <mat-error *ngIf="registerForm.get('displayName').hasError('minlength')">Meno musí mať aspoň 3 znaky</mat-error>
-    <mat-error *ngIf="registerForm.get('displayName').hasError('maxlength')">Meno nesmie presiahnuť 12 znakov</mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="standard">
-    <mat-label>Tvoj email</mat-label>
-    <input
-      id="email"
-      matInput
-      formControlName="email"
-    />
-    <mat-error *ngIf="registerForm.get('email').hasError('required')">Email je povinný údaj</mat-error>
-    <mat-error *ngIf="registerForm.get('email').hasError('email')">Zadaj email</mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="standard">
-    <mat-label>Heslo</mat-label>
-    <input
-      id="password"
-      type="password"
-      matInput
-      formControlName="password"
-    />
-    <mat-error *ngIf="registerForm.get('password').hasError('required')">Heslo je povinný údaj</mat-error>
-    <mat-error *ngIf="registerForm.get('password').hasError('minlength')">Heslo musí mať aspoň 12 znakov</mat-error>
-    <mat-error *ngIf="registerForm.get('password').hasError('maxlength')">Heslo nesmie presiahnuť 20 znakov</mat-error>
-  </mat-form-field>
-
-  <mat-form-field appearance="standard">
-    <mat-label>Zopakuj heslo</mat-label>
-    <input
-      id="repeatPassword"
-      type="password"
-      matInput
-      formControlName="repeatPassword"
-    />
-    <mat-error *ngIf="registerForm.get('repeatPassword').hasError('required')">Zopakuj heslo z predchádzajúceho pola</mat-error>
-    <mat-error *ngIf="registerForm.hasError('mismatch')">Obe polia s heslom sa musia zhodovať</mat-error>
-  </mat-form-field>
-
-  <button mat-raised-button color="basic" routerLink="/landing">Späť</button>
-  <button mat-raised-button color="accent" type="submit">
-    Registrovať sa
-  </button>
-</form>
+<mat-card class="card">
+  <h2>Zaregistruj sa a staň sa členom klubu</h2>
+  <h1>KE-KS.sk</h1>
+  <mat-card-content>
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <mat-form-field appearance="standard" color="accent">
+        <mat-label>Používateľské meno</mat-label>
+        <input
+          id="displayName"
+          matInput
+          formControlName="displayName"
+        />
+        <mat-error *ngIf="registerForm.get('displayName').hasError('required')">Meno je povinný údaj</mat-error>
+        <mat-error *ngIf="registerForm.get('displayName').hasError('minlength')">Meno musí mať aspoň 3 znaky</mat-error>
+        <mat-error *ngIf="registerForm.get('displayName').hasError('maxlength')">Meno nesmie presiahnuť 12 znakov</mat-error>
+      </mat-form-field>
+    
+      <mat-form-field appearance="standard" color="accent">
+        <mat-label>Email</mat-label>
+        <input
+          id="email"
+          matInput
+          formControlName="email"
+        />
+        <mat-error *ngIf="registerForm.get('email').hasError('required')">Email je povinný údaj</mat-error>
+        <mat-error *ngIf="registerForm.get('email').hasError('email')">Zadaj email</mat-error>
+        <mat-error *ngIf="registerForm.get('email').hasError('emailInUse')">Tento email je už u nás zaregistrovaný</mat-error>
+      </mat-form-field>
+    
+      <mat-form-field appearance="standard" color="accent">
+        <mat-label>Heslo</mat-label>
+        <input
+          id="password"
+          type="password"
+          matInput
+          formControlName="password"
+        />
+        <mat-error *ngIf="registerForm.get('password').hasError('required')">Heslo je povinný údaj</mat-error>
+        <mat-error *ngIf="registerForm.get('password').hasError('minlength')">Heslo musí mať aspoň 12 znakov</mat-error>
+        <mat-error *ngIf="registerForm.get('password').hasError('maxlength')">Heslo nesmie presiahnuť 20 znakov</mat-error>
+      </mat-form-field>
+    
+      <mat-form-field appearance="standard" color="accent">
+        <mat-label>Zopakuj heslo</mat-label>
+        <input
+          id="repeatPassword"
+          type="password"
+          matInput
+          formControlName="repeatPassword"
+        />
+        <mat-error *ngIf="registerForm.get('repeatPassword').hasError('required')">Zopakuj heslo z predchádzajúceho pola</mat-error>
+        <mat-error *ngIf="registerForm.hasError('mismatch')">Obe polia s heslom sa musia zhodovať</mat-error>
+      </mat-form-field>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">
+          Registrovať sa
+        </button>
+        <button mat-raised-button color="basic" routerLink="/landing">Späť</button>
+        <span>Už si členom? <a [routerLink]="['/login']">Prihlás sa tu</a></span>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>

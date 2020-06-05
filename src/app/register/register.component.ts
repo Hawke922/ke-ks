@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl, AbstractControlOptions, FormControl, FormGroupDirective } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl, FormGroupDirective } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -14,6 +14,10 @@ export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
   userToRegister: UserToRegister;
+  errorMessage = {
+    emailInUse: false,
+    emailInUseMessage: 'Tento email je už u nás zaregistrovaný'
+  };
 
   confirmErrorMatcher = {
     isErrorState: (control: FormControl, form: FormGroupDirective): boolean => {
@@ -36,25 +40,31 @@ export class RegisterComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(12), Validators.maxLength(20)]],
       repeatPassword: ['', Validators.required]
-    }, { validator: this.passwordMatchValidator });
+    }, { validator: this.matchPassword });
   }
 
-  passwordMatchValidator(g: FormGroup) {
-    return g.get('password').value === g.get('repeatPassword').value ? null : { 'mismatch': true };
+  matchPassword(AC: AbstractControl) {
+    const password = AC.get('password').value;
+    if (AC.get('repeatPassword').touched || AC.get('repeatPassword').dirty) {
+        const verifyPassword = AC.get('repeatPassword').value;
+
+        if (password !== verifyPassword) {
+            AC.get('repeatPassword').setErrors({ mismatch: true });
+        } else {
+            return null;
+        }
+    }
   }
 
   register() {
     if (this.registerForm.valid) {
       this.userToRegister = Object.assign({}, this.registerForm.value);
-      this.authService.emailSignup(this.userToRegister);
+      this.authService.emailSignup(this.userToRegister).catch((error) => {
+        if (error.code === 'auth/email-already-in-use') {
+          this.registerForm.get('email').setErrors({ emailInUse: true });
+        }
+      });
     }
   }
-  
-  
-  // getErrorMessage() {
-  //   if (this.registerForm.hasError('required')) {
-  //     return 'You must enter a value';
-  //   }
-  //   return this.email.hasError('email') ? 'Not a valid email' : '';
-  // }
+
 }

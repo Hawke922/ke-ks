@@ -1,28 +1,38 @@
-<form [formGroup]="loginForm" (ngSubmit)="login()">
-    <mat-form-field appearance="standard">
-    <mat-label>Tvoj email</mat-label>
-        <input 
-        id="email"
-        type="text" 
-        matInput
-        [ngClass]="{'is-invalid': loginForm.get('email').errors}"
-        formControlName="email">
-        <mat-error *ngIf="loginForm.get('email').hasError('email')">Zadaj email</mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="standard">
-        <mat-label>Zadaj heslo</mat-label>
+<mat-card class="card">
+    <h1>KE-KS.sk</h1>
+    <mat-card-content>
+    <button class="google-login" mat-raised-button color="primary" (click)="authService.googleSignin()">
+        Prihlásiť sa cez Google účet
+    </button>
+    <h2>alebo</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <mat-form-field appearance="standard" color="accent">
+        <mat-label>Tvoj email</mat-label>
             <input 
-            id="heslo"
-            type="password" 
+            id="email"
+            type="text" 
             matInput
-            [ngClass]="{'is-invalid': loginForm.get('password').errors}"
-            formControlName="password">
+            [ngClass]="{'is-invalid': loginForm.get('email').errors}"
+            formControlName="email">
+            <mat-error *ngIf="loginForm.get('email').hasError('email')">Zadaj email</mat-error>
+            <mat-error *ngIf="loginForm.get('email').hasError('loginFailed')">Nesprávne meno alebo heslo</mat-error>
         </mat-form-field>
-    <button mat-raised-button color="accent" type="submit">Prihlásiť sa</button>
-</form>
-
-<button mat-raised-button color="accent" (click)="authService.googleSignin()">
-    Prihlásiť sa cez Google účet
-</button>
-<button mat-raised-button color="basic" routerLink="/landing">Späť</button>
+    
+        <mat-form-field appearance="standard" color="accent">
+            <mat-label>Zadaj heslo</mat-label>
+                <input 
+                id="heslo"
+                type="password" 
+                matInput
+                [ngClass]="{'is-invalid': loginForm.get('password').errors}"
+                formControlName="password"> 
+        </mat-form-field>
+        <a [routerLink]="['/register']">Zabudnuté heslo?</a>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" type="submit">Prihlásiť sa</button>
+            <button mat-raised-button color="basic" routerLink="/landing">Späť</button>
+            <span>Nemáš účet? <a [routerLink]="['/register']">Zaregistruj sa</a> a staň sa členom!</span>
+        </mat-card-actions>
+    </form>
+    </mat-card-content>
+  </mat-card>

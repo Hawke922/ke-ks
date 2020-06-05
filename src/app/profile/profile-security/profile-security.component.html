@@ -1,0 +1,13 @@
+  <h1>Prihlasovanie a bezpečnosť</h1> 
+  <mat-divider></mat-divider>
+  <div class="profile-line">
+    <span>Login</span>
+    <span class="login-email" *ngIf="authService.user$ | async as user">{{ user.email }}</span>
+    <button mat-raised-button color="primary">Zmeniť</button>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="profile-line">
+    <span>Heslo</span>
+    <div class="spacer"></div>
+    <button mat-raised-button color="primary">Zmeniť</button>
+  </div>

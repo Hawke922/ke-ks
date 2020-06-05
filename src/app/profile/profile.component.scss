@@ -1,0 +1,27 @@
+:host {
+    display: grid;
+    grid-template-columns: 1fr 30rem 70rem 1fr;
+}
+
+.menu {
+    grid-column: 2/3;
+    display: flex;
+    flex-direction: column;
+    height: 25rem;
+    margin: 10rem 0;
+    padding: 0;
+}
+
+.menu button {  
+    text-align: left;
+    height: 100%;
+}
+
+mat-icon {
+    width: 2rem;
+    margin-right: 2rem;
+}
+
+.component-viewer {
+    margin: 10rem 0 0 5rem;
+}

@@ -1,3 +1,4 @@
+
 .logo {
     display: grid;
     grid-template-columns: 1fr;
@@ -12,12 +13,11 @@
 }
 
 .logo span {
-    font-weight: 200;
-    text-shadow: var(--text-shadow);
+    font-weight: 300;
 }
 
 #title {
-    font-size: 4.5rem;
+    font-size: 4rem;
     margin-left: -0.3rem;
 }
 
@@ -26,13 +26,13 @@
 }
 
 mat-toolbar {
-    height: 10rem;
+    height: 8rem;
 }
 
 .nav-link {
     display: grid;
     height: 100%;
-    font-size: 2rem;
+    font-size: 1.8rem;
     font-weight: 400;
     place-content: center;
     padding: 0 3rem;
@@ -40,4 +40,16 @@ mat-toolbar {
 
 #login {
     margin-right: var(--side-margin)
+}
+
+mat-divider.style-fix {
+    height: 6rem;
+    margin-left: 0.5rem;
+    margin-right: .5rem;
+  }
+
+mat-icon {
+    width: 2rem;
+    margin-right: 2rem;
+    color: black;
 }

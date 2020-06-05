@@ -14,24 +14,12 @@ $custom-typography: mat-typography-config(
 
 @include mat-core($custom-typography);
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$keks-spa-primary: mat-palette($mat-yellow);
-$keks-spa-accent: mat-palette($mat-lime, A200, A100, A400);
+// import custom theme
+@import './theme.scss';
 
-// The warn palette is optional (defaults to red).
-$keks-spa-warn: mat-palette($mat-red);
+// import custom componenet themes
+// @import './custom-component-themes.scss';
 
-// Create the theme object (a Sass map containing all of the palettes).
-$keks-spa-theme: mat-light-theme($keks-spa-primary, $keks-spa-accent, $keks-spa-warn);
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include angular-material-theme($keks-spa-theme);
-
-/* You can add global styles to this file, and also import other style files */
 
 html, body { 
     height: 100%;
@@ -42,10 +30,12 @@ body {
     margin: 0; 
     font-family: Montserrat, "Helvetica Neue", sans-serif;
     color: #2D3138;
+    // background: linear-gradient(7deg, #e9b27b 0%, #e39e59 43%, #e39e59 100%);
+    background: #FFCC80;
 }
 
 :root {
     --side-margin: 10rem;
     --text-color: #2D3138;
-    --text-shadow: 0 0.3rem 0.6rem #50516075;
+    --text-shadow: 0.2rem 0.2rem 0.5rem #505160;
 }

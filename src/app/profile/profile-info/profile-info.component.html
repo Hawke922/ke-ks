@@ -1,0 +1,70 @@
+
+  <div class="header-line">
+    <h1>Môj Profil</h1> 
+    <div class="spacer"></div>
+    <button mat-raised-button color="primary">Potvrdiť zmeny</button>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="profile-line">
+    <span class="profile-property">Avatar</span>
+    <img src="{{ user.photoURL }}" alt="Obrázok nenájdený" class="preview-property">
+    <div class="spacer"></div>
+    <button mat-raised-button color="primary" (click)="openDialog()">Zmeniť</button>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="profile-line">
+    <span class="profile-property">Používateľské meno</span>
+    <span class="display-name preview-property">{{ newName }}</span>
+    <div class="spacer"></div>
+    <mat-form-field class="display-name-form" color="accent">
+      <mat-label>Používateľské meno</mat-label>
+      <input matInput type="text" [(ngModel)]="newName">
+      <button mat-button *ngIf="newName" matSuffix mat-icon-button aria-label="Clear" (click)="newName=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="profile-line">
+    <span class="profile-property">Pohlavie</span>
+    <div class="spacer"></div>
+    <mat-radio-group aria-label="Select an option">
+      <mat-radio-button value="1">Muž</mat-radio-button>
+      <mat-radio-button value="2">Žena</mat-radio-button>
+    </mat-radio-group>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="profile-line">
+    <span class="profile-property">Narodeniny</span>
+    <div class="spacer"></div>
+    <mat-form-field class="date" color="accent">
+      <mat-label>Deň</mat-label>
+      <mat-select>
+        <mat-option>-</mat-option>
+        <mat-option *ngFor="let day of days" [value]="day">{{ day }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="date" color="accent">
+      <mat-label>Mesiac</mat-label>
+      <mat-select>
+        <mat-option>-</mat-option>
+        <mat-option *ngFor="let month of months" [value]="month">{{ month }}</mat-option>
+      </mat-select>
+    </mat-form-field> 
+    <mat-form-field class="date" color="accent">
+      <mat-label>Rok</mat-label>
+      <mat-select>
+        <mat-option>-</mat-option>
+        <mat-option *ngFor="let year of years" [value]="year">{{ year }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="profile-line">
+    <span class="profile-property">Bio</span>
+    <div class="spacer"></div>
+    <mat-form-field appearance="fill" class="about-me-field" color="accent">
+      <mat-label>Niečo o mne</mat-label>
+      <textarea matInput placeholder="Napr. Môj obľúbený kaktus..."></textarea>
+    </mat-form-field>
+  </div>

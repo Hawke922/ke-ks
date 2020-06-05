@@ -5,7 +5,9 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +19,12 @@ import { RegisterComponent } from './register/register.component';
 import { MaterialModule } from './material';
 import { AuthService } from './services/auth.service';
 import { ProfileComponent } from './profile/profile.component';
+import { ProfileInfoComponent } from './profile/profile-info/profile-info.component';
+import { ProfileSecurityComponent } from './profile/profile-security/profile-security.component';
+import { AvatarComponent } from './profile/profile-info/avatar/avatar.component';
+import { UserService } from './services/user.service';
+import { FileService } from './services/file.service';
+import { ProfileResolver } from './resolvers/profile.resolver';
 
 @NgModule({
    declarations: [
@@ -25,7 +33,10 @@ import { ProfileComponent } from './profile/profile.component';
       NavbarComponent,
       LoginComponent,
       RegisterComponent,
-      ProfileComponent
+      ProfileComponent,
+      ProfileInfoComponent,
+      ProfileSecurityComponent,
+      AvatarComponent
    ],
    imports: [
       BrowserModule,
@@ -36,9 +47,17 @@ import { ProfileComponent } from './profile/profile.component';
       AngularFireStorageModule,
       BrowserAnimationsModule,
       MaterialModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      FormsModule,
+      CommonModule,
+      ImageCropperModule
    ],
-   providers: [AuthService],
+   providers: [
+      AuthService,
+      UserService,
+      FileService,
+      ProfileResolver
+   ],
    bootstrap: [
       AppComponent
    ]

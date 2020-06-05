@@ -1,0 +1,40 @@
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+$keks-spa-primary: mat-palette($mat-lime);
+$keks-spa-accent: mat-palette($mat-brown, 800);
+
+// The warn palette is optional (defaults to red).
+$keks-spa-warn: mat-palette($mat-red);
+
+
+// Create the theme object (a Sass map containing all of the palettes).
+$keks-spa-theme: mat-light-theme($keks-spa-primary, $keks-spa-accent, $keks-spa-warn);
+
+// Custom background setup
+@function custom-theme-background($color) {
+    @return (
+        status-bar: map_get($mat-grey, 300),
+        app-bar:    map_get($mat-grey, 100),
+        background: map_get($mat-grey, 50),
+        hover:      rgba(black, 0.04),
+        card:       $color,
+        dialog:     white,
+        disabled-button: rgba(black, 0.12),
+        raised-button: white,
+        focused-button: $dark-focused,
+        selected-button: map_get($mat-grey, 300),
+        selected-disabled-button: map_get($mat-grey, 400),
+        disabled-button-toggle: map_get($mat-grey, 200),
+        unselected-chip: map_get($mat-grey, 300),
+        disabled-list-option: map_get($mat-grey, 200),
+        tooltip: map_get($mat-grey, 700),
+    );
+};
+
+
+$custom-background: custom-theme-background(#ffffff71);
+$keks-spa-theme: map_merge($keks-spa-theme, (background: $custom-background));
+
+@include angular-material-theme($keks-spa-theme);
