@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, BehaviorSubject } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { User } from '../models/user.model';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 import { auth } from 'firebase';
-import { UserToRegister } from '../models/user-to-register.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,23 +34,25 @@ export class AuthService {
     );
   }
 
-  async emailSignup(userToRegister: UserToRegister) {
+  async emailSignup(userToRegister: User) {
+    const keksAvatar = 'https://firebasestorage.googleapis.com/v0/b/keks-development.appspot.com/o/user.png?alt=media&token=771c84d5-7cc8-4e07-a26b-63c0262a91bd';
+
     const credential = await this.angularFireAuth.createUserWithEmailAndPassword(userToRegister.email, userToRegister.password)
       .then((result) => {
         result.user.updateProfile({
           displayName: userToRegister.displayName,
-          photoURL: 'https://firebasestorage.googleapis.com/v0/b/keks-development.appspot.com/o/user.png?alt=media&token=771c84d5-7cc8-4e07-a26b-63c0262a91bd'
+          photoURL: keksAvatar
         });
 
         const userRef: AngularFirestoreDocument<User> = this.angularFirestore.doc(`users/${result.user.uid}`);
-        this.router.navigate(['/landing']);
-
         const data = {
           uid: result.user.uid,
           email: result.user.email,
           displayName: userToRegister.displayName,
-          photoURL: 'https://firebasestorage.googleapis.com/v0/b/keks-development.appspot.com/o/user.png?alt=media&token=771c84d5-7cc8-4e07-a26b-63c0262a91bd'
+          photoURL: keksAvatar
         };
+
+        this.router.navigate(['/landing']);
 
         return userRef.set(data, {merge: true});
       });

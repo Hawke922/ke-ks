@@ -33,6 +33,7 @@
         class="nav-link" 
         id="login" 
         *ngIf="authService.user$ | async as user">
+        <img src="{{ user.photoURL }}" alt="Obrázok nenájdený" class="avatar">
             {{ user.displayName }}
     </a>
     <mat-menu #dropdown="matMenu" yPosition="below">

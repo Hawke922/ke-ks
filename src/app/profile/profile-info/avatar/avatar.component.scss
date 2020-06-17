@@ -36,8 +36,9 @@ h1 {
     margin-bottom: 1rem;
 }
 
-.cropper {
-    max-width: 50rem;
+image-cropper {
+    max-height: 500px;
+    max-width: 500px;
 }
 
 .spacer {

@@ -50,7 +50,8 @@ import { ProfileResolver } from './resolvers/profile.resolver';
       ReactiveFormsModule,
       FormsModule,
       CommonModule,
-      ImageCropperModule
+      ImageCropperModule,
+      AngularFireAuthModule
    ],
    providers: [
       AuthService,

@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators, AbstractControl, FormControl, FormG
 import { AuthService } from '../services/auth.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { UserToRegister } from '../models/user-to-register.model';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +12,6 @@ import { UserToRegister } from '../models/user-to-register.model';
 export class RegisterComponent implements OnInit {
 
   registerForm: FormGroup;
-  userToRegister: UserToRegister;
   errorMessage = {
     emailInUse: false,
     emailInUseMessage: 'Tento email je už u nás zaregistrovaný'
@@ -58,8 +56,8 @@ export class RegisterComponent implements OnInit {
 
   register() {
     if (this.registerForm.valid) {
-      this.userToRegister = Object.assign({}, this.registerForm.value);
-      this.authService.emailSignup(this.userToRegister).catch((error) => {
+      const userToRegister = Object.assign({}, this.registerForm.value);
+      this.authService.emailSignup(userToRegister).catch((error) => {
         if (error.code === 'auth/email-already-in-use') {
           this.registerForm.get('email').setErrors({ emailInUse: true });
         }

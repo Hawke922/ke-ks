@@ -34,7 +34,7 @@ $keks-spa-theme: mat-light-theme($keks-spa-primary, $keks-spa-accent, $keks-spa-
 };
 
 
-$custom-background: custom-theme-background(#ffffff71);
+$custom-background: custom-theme-background(#ffe3b8);
 $keks-spa-theme: map_merge($keks-spa-theme, (background: $custom-background));
 
 @include angular-material-theme($keks-spa-theme);

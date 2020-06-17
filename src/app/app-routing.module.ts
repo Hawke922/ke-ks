@@ -14,7 +14,6 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'landing', component: LandingComponent },
   { path: 'profil', component: ProfileComponent,
-    resolve: {user: ProfileResolver},
     children: [{
         path: 'info',
         component: ProfileInfoComponent,
